@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Application Show Page" do
   before(:each) do
     @application_1 = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals", status: "In Progress")
-    @application_with_no_pets = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals", status: "In Progress")
+    @application_with_no_pets = Application.create(name: "John", street_address: "1234 ABC Lane", city: "Turing", state: "Backend", zipcode: "54321", description: "I love animals", status: "In Progress") # do we want to hardcode the status in this spec or rely on the logic to update it? Tests failed when I removed it, but I'm not sure if thats because our logic is not working or if we need to populate it for the test.
 
     @shelter = Shelter.create(foster_program: true, name: "Turing", city: "Backend", rank: 3)
 
@@ -23,7 +23,7 @@ RSpec.describe "Application Show Page" do
     expect(page).to have_content(@application_1.description)
     expect(page).to have_link("#{@dog.name}")
     expect(page).to have_link("#{@cat.name}")
-    expect(page).to have_content(@application_1.status)
+    expect(page).to have_content("In Progress")
 
     click_link("#{@dog.name}")
 

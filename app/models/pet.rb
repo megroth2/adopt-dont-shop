@@ -12,7 +12,7 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
-  def application_pet_approved(id)
-    ApplicationPet.where(pet_id: self.id, application_id: id).pluck(:application_approved).first
+  def application_pet_approved(application_id) # I played around with this in pry to try to understand and it doesn't appear to be working?
+    ApplicationPet.where(pet_id: self.id, application_id: application_id).pluck(:application_approved).first
   end
 end

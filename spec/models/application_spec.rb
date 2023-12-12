@@ -14,13 +14,17 @@ RSpec.describe Application, type: :model do
   end
 
   describe "validations" do
-    it { should validate_presence_of :name}
-    it { should validate_presence_of :street_address}
-    it { should validate_presence_of :city}
-    it { should validate_presence_of :state}
-    it { should validate_presence_of :zipcode}
-    it { should validate_numericality_of :zipcode}
-    it { should validate_presence_of :description}
+    it {should validate_presence_of :name}
+    it {should validate_presence_of :street_address}
+    it {should validate_presence_of :city}
+    it {should validate_presence_of :state}
+    it {should validate_presence_of :zipcode}
+    it {should validate_numericality_of :zipcode}
+    it {should validate_presence_of :description}
+  end
+
+  describe "assocations" do
+    it {should have_many(:application_pets)}
   end
 
   describe "#full_address" do
@@ -69,6 +73,20 @@ RSpec.describe Application, type: :model do
     end
   end
 
+  describe "#all_pets_approved?" do
+    xit "" do
+      # placeholder
+    end
+  end
+
+  describe "#status_of_application_pet" do
+    xit "" do
+      # placeholder
+    end
+  end
+
+end
+
   # describe "#set_status_pending" do
   #   it "can set status to pending" do
   #     @application_1.good_owner_comments = "We bonded at the shelter."
@@ -91,5 +109,3 @@ RSpec.describe Application, type: :model do
   #     expect(@application_1.has_good_owner_comments?).to eq(false)
   #   end
   # end
-
-end

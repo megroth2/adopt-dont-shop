@@ -1,7 +1,7 @@
 class Admin < ApplicationRecord
 
   def self.check_for_application_pet_approval(application_id, pet_id)
-    ApplicationPet.select(:application_approved).where(application_id: application_id, pet_id: pet_id).pluck(:applicaiton_approved).first
+    ApplicationPet.select(:application_approved).where(application_id: application_id, pet_id: pet_id).pluck(:application_approved).first
   end
 
   def self.application(id)

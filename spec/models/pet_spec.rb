@@ -2,13 +2,14 @@ require "rails_helper"
 
 RSpec.describe Pet, type: :model do
   describe "relationships" do
-    it { should belong_to(:shelter) }
+    it{should belong_to(:shelter)}
+    it{should have_many(:application_pets)}
   end
 
   describe "validations" do
-    it { should validate_presence_of(:name) }
-    it { should validate_presence_of(:age) }
-    it { should validate_numericality_of(:age) }
+    it{should validate_presence_of(:name)}
+    it{should validate_presence_of(:age)}
+    it{should validate_numericality_of(:age)}
   end
 
   before(:each) do
@@ -29,6 +30,7 @@ RSpec.describe Pet, type: :model do
   end
 
   describe "class methods" do
+    # I couldn't find this method in the pet.rb model - where is this test coming from?
     describe "#search" do
       it "returns partial matches" do
         expect(Pet.search("Claw")).to eq([@pet_2])
@@ -43,20 +45,20 @@ RSpec.describe Pet, type: :model do
   end
 
   describe "instance methods" do
-    describe ".shelter_name" do
+    describe "#shelter_name" do
       it "returns the shelter name for the given pet" do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+
+    describe "#application_pet_approved" do
+      xit "checks to see if the pet has been approved for an application" do
+        expect(@dog.application_pet_approved(@application_pet_1.id)).to eq nil
+
+        @application_pet_1 = ApplicationPet.create(application_id: @application_1.id, pet_id: @dog.id, application_approved: true) # can this be moved to the before each block or was it intentionally put here? Could we simplify it to update the application_approved value and not create a whole new application_pet?
+
+        expect(@dog.application_pet_approved(@application_pet_1.id)).to eq true
+      end
+    end
   end
-
-  # describe "application_pet_approved" do
-  #   it "checks to see if the pet has been approved for an application" do
-  #     expect(@dog.application_pet_approved).to eq nil
-
-  #     @application_pet_1 = ApplicationPet.create(application_id: @application_1.id, pet_id: @dog.id, application_approved: true)
-
-  #     expect(@dog.application_pet_approved).to eq true
-  #   end
-  # end
 end

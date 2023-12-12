@@ -15,8 +15,6 @@ class ApplicationsController < ApplicationController
     else
       flash[:alert] = "Error: All fields are required."
       redirect_to new_application_path
-      # Is this the correct location? Or should we move this error message text to application_controller.rb or another file?
-      ## So I looked it up, I think this is where it goes, but I don't know why it automatically renders and we don't get to choose where to render it in the view... kind of annoying that it's at the top of the page, maybe we can ask in a study hall or something. For now, it works?
     end
   end
 
@@ -46,6 +44,14 @@ class ApplicationsController < ApplicationController
 
   private
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zipcode, :description, :good_owner_comments, status: "In Progress")
+    params.permit(
+      :name,
+      :street_address,
+      :city,
+      :state,
+      :zipcode,
+      :description,
+      :good_owner_comments,
+      status: "In Progress") # is it best practice to hard code this or is there a better way to do this?
   end
 end

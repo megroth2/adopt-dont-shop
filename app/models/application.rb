@@ -16,8 +16,6 @@ class Application < ApplicationRecord
     Pet.where(id: pet_ids)
   end
 
-  # would it make sense to refactor these into one "status" method or leave as smaller separate methods? Could see pros and cons to both...
-  ## Yes, took away set_status_pending, I did that in the Controller's #update
   def set_status_in_progress
     self.status = "In Progress"
     self.save
@@ -31,16 +29,11 @@ class Application < ApplicationRecord
     list_of_pets.present?
   end
 
-  def all_pets_approved?
-    if status_of_application_pet.uniq.count == 1 && status_of_application_pet.first == true
-      true
-    else
-      false
-    end
-
+  def all_pets_approved? # Is this checking for all pets approved or just one? It seems like it limits it to just one. Want to take a closer look so I can understand whats going on
+    status_of_application_pet.uniq.count == 1 && status_of_application_pet.first == true
   end
 
-  def status_of_application_pet
+  def status_of_application_pet # as currently written this will return true or false - is that expected? If so, can we rename it per ruby convention (with a ?)
     ApplicationPet.where(application_id: self.id).pluck(:application_approved)
   end
 end
